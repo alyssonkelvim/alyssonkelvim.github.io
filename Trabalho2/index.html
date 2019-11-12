@@ -53,11 +53,13 @@
     </script>
 
     <!--Funções-->
-    <script type="text/javascript" src="../glMatrix-0.9.5.min.js"></script>
-    <script type="text/javascript" src="../jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="../webgl-utils.js"></script>
+    <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+    <script type="text/javascript" src="jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="webgl-utils.js"></script>
 
     <script type="text/javascript">
+        var tocar = false;
+        var pri = false;
         var tocar = false;
         var pri = false;
         var gl;
@@ -160,9 +162,11 @@
             }
             if (teclasPressionadas[37]) {
                 // Esquerda
+                tocar = true;
                 yVelo -= 1;
             }
             if (teclasPressionadas[39]) {
+                tocar = true;
                 // Direita
                 yVelo += 1;
             }
@@ -199,6 +203,13 @@
             if (teclasPressionadas[106]) { //Multiply
                 // Rotaciona Direita
                 cRot += 1;
+            }
+            if (tocar) {
+                if (!pri) {
+                    var audio = new Audio('audio_file.mp3');
+                    audio.play();
+                    pri = true;
+                }
             }
         }
 
