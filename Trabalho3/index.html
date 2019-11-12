@@ -1,10 +1,8 @@
 <html>
-
-<head>
+  <head>
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <a-scene>
         <a-box position="-1 0.5 -3" rotation="0 45 0" color="rgba(248, 222, 74, 0.24)"></a-box>
         <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
@@ -15,4 +13,17 @@
     </a-scene>
 </body>
 
+      
+        <a-assets>
+       <a-asset-item id="brainstem" src="scene.gltf"></a-asset-item>
+  </a-assets>
+
+
+  <a-entity gltf-model="#brainstem" position="0 0 -5" scale="3 3 3"></a-entity>
+
+  <a-sky color="#FAFAFA"></a-sky>
+        
+      <a-sky color="rgb(234, 200, 124)"></a-sky>
+    </a-scene>
+  </body>
 </html>
