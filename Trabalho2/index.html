@@ -1,5 +1,4 @@
 <html>
-<!-- Só RODA NO IE -->
 
 <head>
     <meta charset="utf-8" />
@@ -54,9 +53,9 @@
     </script>
 
     <!--Funções-->
-    <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
-    <script type="text/javascript" src="jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="webgl-utils.js"></script>
+    <script type="text/javascript" src="../glMatrix-0.9.5.min.js"></script>
+    <script type="text/javascript" src="../jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../webgl-utils.js"></script>
 
     <script type="text/javascript">
         var tocar = false;
@@ -151,23 +150,21 @@
         }
 
         function tratarTeclado() {
-            if (teclasPressionadas[33]) {
+            if (teclasPressionadas[109]) {
                 // Page Up
                 z -= 0.05;
             }
-            if (teclasPressionadas[34]) {
+            if (teclasPressionadas[107]) {
                 // Page Down
                 z += 0.05;
             }
             if (teclasPressionadas[37]) {
                 // Esquerda
                 yVelo -= 1;
-                tocar = true;
             }
             if (teclasPressionadas[39]) {
                 // Direita
                 yVelo += 1;
-                tocar = true;
             }
             if (teclasPressionadas[38]) {
                 // Cima
@@ -194,21 +191,14 @@
                 // Baixo
                 xVeloP += 1;
             }
-            if (teclasPressionadas[80]) {
-                cRot += 1;
-            }
-            if (teclasPressionadas[79]) {
+
+            if (teclasPressionadas[111]) { //Divide
+                //Rotaciona Esquerda
                 cRot -= 1;
             }
-            if (teclasPressionadas[76]) {
-                luz = !luz;
-            }
-            if (tocar) {
-                if (!pri) {
-                    var audio = new Audio('audio_file.mp3');
-                    audio.play();
-                    pri = true;
-                }
+            if (teclasPressionadas[106]) { //Multiply
+                // Rotaciona Direita
+                cRot += 1;
             }
         }
 
@@ -219,16 +209,16 @@
             imagemCaixa.onload = function() {
                 tratarTextura(caixaTextura);
             }
-            imagemCaixa.src = "ar.jpg";
-
+            imagemCaixa.src = "caixa.jpg";
+            shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+            //----------------------------------------------------------------------------------
             var imagemPiramide = new Image();
             piramideTextura = gl.createTexture();
             piramideTextura.image = imagemPiramide;
             imagemPiramide.onload = function() {
                 tratarTextura(piramideTextura);
             }
-            imagemPiramide.src = "fogo.jpg";
-
+            imagemPiramide.src = "piramide.jpg";
             shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
         }
 
@@ -325,126 +315,7 @@
         }
 
         function iniciarBuffers() {
-
-            //VERTICES DA PIRAMIDE
-            piramideVertexPositionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexPositionBuffer);
-            var vertices = [
-                // Frente
-                0.0, 1.0, 0.0,
-                -1.0, -1.0, 1.0,
-                1.0, -1.0, 1.0,
-                // Direita
-                0.0, 1.0, 0.0,
-                1.0, -1.0, 1.0,
-                1.0, -1.0, -1.0,
-                // Trás
-                0.0, 1.0, 0.0,
-                1.0, -1.0, -1.0,
-                -1.0, -1.0, -1.0,
-                // Esquerda
-                0.0, 1.0, 0.0,
-                -1.0, -1.0, -1.0,
-                -1.0, -1.0, 1.0,
-                // Base
-                1.0, -1.0, -1.0, //ok 5
-                -1.0, -1.0, -1.0, //
-                1.0, -1.0, 1.0, //ok 2
-                -1.0, -1.0, 1.0, //1
-            ];
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-            piramideVertexPositionBuffer.itemSize = 3;
-            piramideVertexPositionBuffer.numItems = 12;
-
-            //COORDENADAS TEXTURA PIRAMIDE
-            piramideVertexTextureCoordBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexTextureCoordBuffer);
-            var coordTextura = [
-                // Frente
-                0.5, 1.0,
-                0.0, 0.0,
-                1.0, 1.0,
-
-                // Direita
-                0.5, 1.0,
-                0.0, 0.0,
-                1.0, 1.0,
-
-                // Trás
-                0.5, 1.0,
-                0.0, 0.0,
-                1.0, 1.0,
-
-                // Esquerda
-                0.5, 1.0,
-                0.0, 0.0,
-                1.0, 1.0,
-
-                // Base
-                0.0, 0.0,
-                1.0, 0.0,
-                1.0, 1.0,
-                0.0, 1.0,
-            ];
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coordTextura), gl.STATIC_DRAW);
-            piramideVertexTextureCoordBuffer.itemSize = 2;
-            piramideVertexTextureCoordBuffer.numItems = 16;
-
-            //INDICES DE LIGAÇÃO DA PIRAMIDE
-            piramideVertexIndexBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, piramideVertexIndexBuffer);
-            var indices = [
-                0, 1, 2, // Frente
-                3, 4, 5, // Trás
-                6, 7, 8, // Direita
-                9, 10, 11, // Esquerda
-                13, 14, 15, 12, 13, 14 // Base
-
-            ];
-            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
-            piramideVertexIndexBuffer.itemSize = 1;
-            piramideVertexIndexBuffer.numItems = 18;
-
-            //BUFFER Da PIRAMIDE
-            piramideVertexNormalBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexNormalBuffer);
-            var vertexNormals = [
-                // Frente
-                0.0, 0.0, 1.0,
-                0.0, 0.0, 1.0,
-                0.0, 0.0, 1.0,
-                0.0, 0.0, 1.0,
-
-                // Direita
-                1.0, 0.0, 0.0,
-                1.0, 0.0, 0.0,
-                1.0, 0.0, 0.0,
-                1.0, 0.0, 0.0,
-
-                // Trás
-                0.0, 0.0, -1.0,
-                0.0, 0.0, -1.0,
-                0.0, 0.0, -1.0,
-                0.0, 0.0, -1.0,
-
-                // Esquerda
-                -1.0, 0.0, 0.0,
-                -1.0, 0.0, 0.0,
-                -1.0, 0.0, 0.0,
-                -1.0, 0.0, 0.0,
-
-                // Base
-                0.0, -1.0, 0.0,
-                0.0, -1.0, 0.0,
-                0.0, -1.0, 0.0,
-                0.0, -1.0, 0.0,
-            ];
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
-            piramideVertexNormalBuffer.itemSize = 3;
-            piramideVertexNormalBuffer.numItems = 20;
-
-
-            //VERTICES DO CUBO
+            // Cubo
             cuboVertexPositionBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, cuboVertexPositionBuffer);
             vertices = [
@@ -488,7 +359,6 @@
             cuboVertexPositionBuffer.itemSize = 3;
             cuboVertexPositionBuffer.numItems = 4;
 
-            //COORDENADAS TEXTURA CUBO
             cuboVertexTextureCoordBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, cuboVertexTextureCoordBuffer);
             var coordTextura = [
@@ -532,7 +402,6 @@
             cuboVertexTextureCoordBuffer.itemSize = 2;
             cuboVertexTextureCoordBuffer.numItems = 24;
 
-            //INDICES DE LIGAÇÃO DO CUBO
             cuboVertexIndexBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cuboVertexIndexBuffer);
             var indices = [
@@ -547,7 +416,6 @@
             cuboVertexIndexBuffer.itemSize = 1;
             cuboVertexIndexBuffer.numItems = 36;
 
-            //BUFFER DO CUBO
             cuboVertexNormalBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, cuboVertexNormalBuffer);
             var vertexNormals = [
@@ -590,10 +458,125 @@
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
             cuboVertexNormalBuffer.itemSize = 3;
             cuboVertexNormalBuffer.numItems = 24;
+            //----------------------------------------------------------------------------------------------------------------------------
+            //----------------------------------------------------------------------------------------------------------------------------           
+            // Pirâmide
+            piramideVertexPositionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexPositionBuffer);
+            vertices = [
+                // Frente
+                0.0, 1.0, 0.0,
+                -1.0, -1.0, 1.0,
+                1.0, -1.0, 1.0,
+                // Direita
+                0.0, 1.0, 0.0,
+                1.0, -1.0, 1.0,
+                1.0, -1.0, -1.0,
+                // Trás
+                0.0, 1.0, 0.0,
+                1.0, -1.0, -1.0,
+                -1.0, -1.0, -1.0,
+                // Esquerda
+                0.0, 1.0, 0.0,
+                -1.0, -1.0, -1.0,
+                -1.0, -1.0, 1.0,
+                // Baixo
+                1.0, -1.0, -1.0,
+                -1.0, -1.0, -1.0,
+                1.0, -1.0, 1.0,
+                -1.0, -1.0, 1.0
+            ];
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+            piramideVertexPositionBuffer.itemSize = 3;
+            piramideVertexPositionBuffer.numItems = 12;
+
+            piramideVertexTextureCoordBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexTextureCoordBuffer);
+            var coordTextura = [
+                // Frente
+                0.5, 1.0,
+                0.0, 0.0,
+                1.0, 0.0,
+
+                // Trás
+                0.5, 1.0,
+                0.0, 0.0,
+                1.0, 0.0,
+
+                // Esquerda
+                0.5, 1.0,
+                0.0, 0.0,
+                1.0, 0.0,
+
+                // Direita
+                0.5, 1.0,
+                0.0, 0.0,
+                1.0, 0.0,
+
+                // Base
+                1.0, 0.0,
+                0.0, 0.0,
+                1.0, 1.0,
+                0.0, 1.0,
+
+            ];
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coordTextura), gl.STATIC_DRAW);
+            piramideVertexTextureCoordBuffer.itemSize = 2;
+            piramideVertexTextureCoordBuffer.numItems = 16;
+
+            piramideVertexIndexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, piramideVertexIndexBuffer);
+            var indices = [
+                0, 1, 2, // Frente
+                3, 4, 5, // Direita
+                6, 7, 8, // Trás
+                9, 10, 11, // Esquerda
+                12, 13, 14, 13, 14, 15 // Base
+            ]
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+            piramideVertexIndexBuffer.itemSize = 1;
+            piramideVertexIndexBuffer.numItems = 18;
+
+            piramideVertexNormalBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, piramideVertexNormalBuffer);
+            var vertexNormals = [
+                // Frente
+                0.0, 0.0, 1.0,
+                0.0, 0.0, 1.0,
+                0.0, 0.0, 1.0,
+                0.0, 0.0, 1.0,
+
+                // Direita
+                1.0, 0.0, 0.0,
+                1.0, 0.0, 0.0,
+                1.0, 0.0, 0.0,
+                1.0, 0.0, 0.0,
+
+                // Trás
+                0.0, 0.0, -1.0,
+                0.0, 0.0, -1.0,
+                0.0, 0.0, -1.0,
+                0.0, 0.0, -1.0,
+
+                // Esquerda
+                -1.0, 0.0, 0.0,
+                -1.0, 0.0, 0.0,
+                -1.0, 0.0, 0.0,
+                -1.0, 0.0, 0.0,
+
+                // Base
+                0.0, -1.0, 0.0,
+                0.0, -1.0, 0.0,
+                0.0, -1.0, 0.0,
+                0.0, -1.0, 0.0,
+            ];
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
+            piramideVertexNormalBuffer.itemSize = 3;
+            piramideVertexNormalBuffer.numItems = 20;
         }
 
         function iniciarAmbiente() {
-            gl.clearColor(0.9, 0.9, 0.9, 1.0);
+            gl.clearColor(0.0, 0.0, 0.5, 1.0);
             gl.enable(gl.DEPTH_TEST);
             luzCheckBox = document.getElementById("luz");
             vermelhoInput = document.getElementById("vermelho");
@@ -602,16 +585,13 @@
         }
 
         function desenharCena() {
-
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
             mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
             mat4.identity(mMatrix);
             mat4.identity(vMatrix);
 
-            // Desenhando a piramide
+            //Desenhando pirâmide
             mat4.translate(mMatrix, [0.0, 0.0, z]);
-
-
             mPushMatrix();
 
             mat4.rotate(mMatrix, degToRad(xRotP), [1, 0, 0]);
@@ -632,15 +612,13 @@
             setMatrixUniforms();
             gl.drawElements(gl.TRIANGLES, piramideVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
-
-
-
             mPopMatrix();
-
             mat4.rotate(mMatrix, degToRad(rPiramide), [0, 1, 0]);
-            mat4.translate(mMatrix, [4.0, 0.0, 0]);
-            // Desenhando o Cubo
 
+            //--------------------------------------------------------------------------------------------------------------------------------
+
+            // Desenhando o Cubo
+            mat4.translate(mMatrix, [-3.7, 0.0, 0.0]);
 
             mat4.rotate(mMatrix, degToRad(xRot), [1, 0, 0]);
             mat4.rotate(mMatrix, degToRad(yRot), [0, 1, 0]);
@@ -658,6 +636,7 @@
 
 
 
+            var luz = luzCheckBox.checked;
             gl.uniform1i(shaderProgram.usarLuzUniform, luz);
             if (luz) {
                 gl.uniform3f(
@@ -689,13 +668,10 @@
                 gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, matrizNormal);
             }
 
+
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cuboVertexIndexBuffer);
             setMatrixUniforms();
             gl.drawElements(gl.TRIANGLES, cuboVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-
-
-
-
         }
 
         function setMatrixUniforms() {
@@ -751,15 +727,12 @@
 
 <body>
     <canvas id="licao01-canvas" width="500" height="500"></canvas>
-    <h1>Compatível apenas com Internet Explorer</h1>
-    <br />
-    (Use as setas do teclado para girar o cubo e <code>Page Up</code>/<code>Page Down</code> para ampliar ou reduzir)<br>
-    (Para girar a piramide, use W,A,S,D)<br>
-    (Para ligar/desligar a luz tecle L)<br>
-    (Para girar o cubo em torno da piramide utiliz O, P)<br>
 
     <br />
+    <input type="checkbox" id="luz" value="luz" checked /><label for="luz">Luz</label><br />
+    (Use o teclado para girar o cubo e <code>Page Up</code>/<code>Page Down</code> para ampliar ou reduzir)
 
+    <br />
     <h2>Luz Difusa:</h2>
 
     <table style="border: 0; padding: 10px;">
