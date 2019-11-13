@@ -1,31 +1,21 @@
+<!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://aframe.io/releases/0.2.0/aframe.js"></script>
+    </head>
+    
+    <body>
+        <a-scene>
+            <a-assets>
+                <a-asset-item id="crate-obj" src="parasour/PARASAUR.OBJ"></a-asset-item>
+                <a-asset-item id="crate-mtl" src="parasour/PARASAUR.MTL"></a-asset-item>
+            </a-assets>
 
-<head>
-    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-</head>
+            <!-- Using the asset management system. -->
+            <a-obj-model src="#crate-obj" mtl="#crate-mtl"></a-obj-model>
 
-<body>
-    <a-scene>
-        <a-assets>
-            <a-asset-item id="crate-obj" src="crate.obj"></a-asset-item>
-            <a-asset-item id="crate-mtl" src="crate.mtl"></a-asset-item>
-        </a-assets>
-
-        <!-- Using the asset management system. -->
-        <a-obj-model src="#crate-obj" mtl="#crate-mtl"></a-obj-model>
-
-        <!-- Defining the URL inline. Not recommended but may be more comfortable. -->
-        <a-obj-model src="crate.obj" mtl="crate.mtl"></a-obj-model>
-    </a-scene>
-
-    <a-scene>
-        <a-box position="-1 0.5 -3" rotation="0 45 0" color="rgba(248, 222, 74, 0.24)"></a-box>
-        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-        <a-entity geometry="primitive: cone; radiusBottom: 1; radiusTop: 0.1"></a-entity>
-        <a-cone position="10 0 -5" radiusBottom="2" radiusTop="0.1" height="5.0" color="#865318"></a-cone>
-        <!--<a-plane position="0 0 -4" rotation="-90 0 0" width="400" height="400" color="rgba(71, 103, 62, 0.49)"></a-plane>-->
-        <a-sky color="rgb(210, 232, 245)"></a-sky>
-    </a-scene>
-</body>
-
+            <!-- Defining the URL inline. Not recommended but may be more comfortable. -->
+            <!--<a-obj-model src="DeadTree.obj" mtl="DeadTree.mtl"></a-obj-model>-->
+        </a-scene>
+    </body>
 </html>
