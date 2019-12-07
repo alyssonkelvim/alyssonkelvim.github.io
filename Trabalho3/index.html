@@ -4,7 +4,8 @@
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
 </head>
 
@@ -19,6 +20,20 @@
 
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
+
+        AFRAME.registerComponent('dinossauro', {
+
+        init: function () {
+        this.el.addEventListener("collisions", (e) => {
+        colisao = colisao+1;
+        console.log("colisao : "+ colisao)
+        alert("Voce perdeu")
+        location.reload()
+        })
+        }
+
+        });
+
         <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
         <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
         <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -10.00"></a-entity>
