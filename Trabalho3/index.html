@@ -10,6 +10,31 @@
 
 <body>
     <a-scene>
+        <script>
+            var dinossauro;
+            var velocidade = 5;
+            var colisao = 0;
+            var score = 0;
+        AFRAME.registerComponent('dinossauro', {
+            tick: function () {
+                const position = this.el.getAttribute('position');
+                
+                if (this.el.getAttribute("position").z <= -98) {
+                    // velocidade = 0;
+                }
+               
+                if (position.z <= -98) {
+                    position.x = 5;
+                    position.y = 0;
+                    position.z = -0;
+                    score = score + 1;
+                    document.getElementById('placar').setAttribute('value', 'Wins: ' + score);
+                    document.getElementById('camera').setAttribute('position', {x: 0, y: 2, z: 3})
+                    document.getElementById('placar').setAttribute('position', {x: position.x - 3, y: position.y + 3.3, z: position.z})
+                }
+               
+        });
+    </script>
 
         <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
