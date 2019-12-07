@@ -22,7 +22,6 @@
             AFRAME.registerComponent('dinossauro', {
                         tick: function() {
                             const position = this.el.getAttribute('position');
-
                             if (position.z <= -98) {
                                 position.x = 5;
                                 position.y = 0;
@@ -31,8 +30,8 @@
                                 document.getElementById('placar').setAttribute('value', 'Wins: ' + score);
                                 document.getElementById('camera').setAttribute('position', {
                                     x: 0,
-                                    y: 1.6,
-                                    z: 0
+                                    y: 2,
+                                    z: 3
                                 })
                                 document.getElementById('placar').setAttribute('position', {
                                     x: position.x - 3,
