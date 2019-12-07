@@ -21,8 +21,10 @@
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
 
-        <a-asset-item id="dinossauro" position="5 0 0" response-type="arraybuffer" src="scene.glb" static-body physics-collider="ignoreSleep: true" dinossauro material geometry velocity></a-asset-item>
-        <a-entity gltf-model="#dinossauro" static-body physics-collider="ignoreSleep: true" scale="0.005 0.005 0.005" animation-mixer="clip:Armature|run_cycle" animation="property: position; to: 0 0 -98; dur: 40000; easing: linear" animation-mixer="clip:Armature|run_cycle" wasd-controls="property: acceleration; acceleration: 4000; fly:true; wsAxis: y; wsInverted: true"></a-entity>
+
+        <a-entity gltf-model="#dinossauro" static-body physics-collider="ignoreSleep: true" scale="0.005 0.005 0.005" animation-mixer="clip:Armature|run_cycle" animation="property: position; to: 0 0 -98; dur: 40000; easing: linear" animation-mixer="clip:Armature|run_cycle" wasd-controls="property: acceleration; acceleration: 4000; fly:true; wsAxis: y; wsInverted: true">
+            <a-box id="dinossauro" position="5 0 0" response-type="arraybuffer" src="scene.glb" static-body physics-collider="ignoreSleep: true" dinossauro material geometry velocity></a-box>
+        </a-entity>
 
         <a-entity camera look-controls position="0 2 3" animation="property: position; to: 0 2 -94; dur: 40000; easing: linear"></a-entity>
 
@@ -36,22 +38,9 @@
                     this.el.addEventListener("collisions", (e) => {
                         document.getElementById('perdeu').setAttribute('visible', true)
                         colisao = colisao + 1;
-                        //console.log("colisao : " + colisao)
-                        //alert("Voce perdeu");
-                        //document.getElementById('perdeu').setAttribute('visible', true)
-                        // setTimeout(alerta, 3000);
-                        //	var	milliseconds=3000;
-                        //var start = new Date().getTime();
-                        //for (var i = 0; i < 1e7; i++) {
-                        //if ((new Date().getTime() - start) > milliseconds){
-                        //break;
-                        //}	
-                        //}
-                        //window.onloadend=window.alert("voce perdeu,clique para reiniciar")
+
                         location.reload();
-                        //document.getElementById('dinossauro').setAttribute('position', {x: 5, y: 0, z: 0})
-                        //document.getElementById('camera').setAttribute('position', {x: 0, y: 2, z: 3})
-                        // document.getElementById('perdeu').setAttribute('position', {x: -5, y: 3.7, z: -3})
+
                     })
                 }
             });
