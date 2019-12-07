@@ -9,41 +9,43 @@
 </head>
 
 <body>
+
+    <script>
+        var velocidade = 0;
+        var colisao = 0;
+        const pontuacao = 0;
+
+        AFRAME.registerComponent('dinossauro', {
+            tick: function() {
+                this.el.getAttribute("position").z -= velocidade;
+
+                this.el.getAttribute("position").x += velocidade;
+
+                if (velocidade > -0.2) {
+                    velocidade -= 0.01;
+                }
+                if (this.el.getAttribute("position").z <= +5.5) {
+                    velocidade = 0;
+                }
+            },
+            init: function() {
+                this.el.addEventListener("collisions", (e) => {
+                    colisao = colisao + 1;
+                    controle.log("colisao: " + colisao)
+                    alert("Você Perdeu!")
+                    location.reload()
+                })
+            }
+        });
+
+    </script>
     <a-scene>
         <script>
             window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
 
         </script>
 
-        <script>
-            var velocidade = 0;
-            var colisao = 0;
-            const pontuacao = 0;
 
-            AFRAME.registerComponent('dinossauro', {
-                tick: function() {
-                    this.el.getAttribute("position").z -= velocidade;
-
-                    this.el.getAttribute("position").x += velocidade;
-
-                    if (velocidade > -0.2) {
-                        velocidade -= 0.01;
-                    }
-                    if (this.el.getAttribute("position").z <= +5.5) {
-                        velocidade = 0;
-                    }
-                },
-                init: function() {
-                    this.el.addEventListener("collisions", (e) => {
-                        colisao = colisao + 1;
-                        controle.log("colisao: " + colisao)
-                        alert("Você Perdeu!")
-                        location.reload()
-                    })
-                }
-            });
-
-        </script>
 
         <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
