@@ -10,6 +10,22 @@
 
 <body>
     <a-scene>
+
+        <script>
+            //Elementos
+
+            var dinossauro;
+            var score;
+            AFRAME.registerComponent('dinossauro', {
+			init: function () {
+				dinossauro = this.el;
+                dinossauro.addEventListener("collisions", (e) => {
+                    alert("Perdeu!");
+                }
+            }
+            }
+        </script>
+
         <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
@@ -22,15 +38,10 @@
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
 
-        <script>
-            //Elementos
-            
-            var dinossauro;
-            var score;
-        </script>
+
 
         <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 0.00 -5.00"></a-entity>
-        
+
 
     </a-scene>
 </body>
