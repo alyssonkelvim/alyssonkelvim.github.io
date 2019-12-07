@@ -11,7 +11,6 @@
 <body>
     <a-scene>
         <script>
-            var dinossauro;
             window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
 
         </script>
@@ -29,6 +28,18 @@
 
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
+        
+        <scrip>
+            dinossauro.addEventListener("collisions", function(e)
+            {
+            location.reload();
+            
+            document.getElementById('camera').setAttribute('position', {x: 0, y: 2, z: 3})
+ 
+            })
+        
+        
+        </scrip>
         
         
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
