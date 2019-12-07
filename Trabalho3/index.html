@@ -14,95 +14,97 @@
             window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
 
         </script>
-        
+
         <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
 
-        <a-asset-item id="dinossauro" position="5 0 0" response-type="arraybuffer" src="scene.glb" static-body physics-collider="ignoreSleep: true"></a-asset-item>
+        <a-asset-item id="dinossauro" position="5 0 0" response-type="arraybuffer" src="scene.glb" static-body physics-collider="ignoreSleep: true" dinossauro material geometry velocity></a-asset-item>
         <a-entity gltf-model="#dinossauro" static-body physics-collider="ignoreSleep: true" scale="0.005 0.005 0.005" animation-mixer="clip:Armature|run_cycle" animation="property: position; to: 0 0 -98; dur: 40000; easing: linear" animation-mixer="clip:Armature|run_cycle" wasd-controls="property: acceleration; acceleration: 4000; fly:true; wsAxis: y; wsInverted: true"></a-entity>
 
         <a-entity camera look-controls position="0 2 3" animation="property: position; to: 0 2 -94; dur: 40000; easing: linear"></a-entity>
 
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
-        
+
         <script>
-            init: function () {
-                console.log(this.el);
-                this.el.addEventListener("collisions", (e) => {
-                    document.getElementById('perdeu').setAttribute('visible', true)
-                    colisao = colisao + 1;
-                    //console.log("colisao : " + colisao)
-                    //alert("Voce perdeu");
-                    //document.getElementById('perdeu').setAttribute('visible', true)
-                    // setTimeout(alerta, 3000);
-                    //	var	milliseconds=3000;
-                    //var start = new Date().getTime();
-                    //for (var i = 0; i < 1e7; i++) {
-                    //if ((new Date().getTime() - start) > milliseconds){
-                    //break;
-                    //}	
-                    //}
-                    //window.onloadend=window.alert("voce perdeu,clique para reiniciar")
-                    location.reload();
-                    //document.getElementById('dinossauro').setAttribute('position', {x: 0, y: 0.4, z: 2})
-                    //document.getElementById('camera').setAttribute('position', {x: position.x, y: position.y+1.2, z: position.z+3})
-                    // document.getElementById('perdeu').setAttribute('position', {x: -5, y: 3.7, z: -3})
-                })
-            
+            AFRAME.registerComponent('dinossauro', {
+                        init: function() {
+                            console.log(this.el);
+                            this.el.addEventListener("collisions", (e) => {
+                                document.getElementById('perdeu').setAttribute('visible', true)
+                                colisao = colisao + 1;
+                                //console.log("colisao : " + colisao)
+                                //alert("Voce perdeu");
+                                //document.getElementById('perdeu').setAttribute('visible', true)
+                                // setTimeout(alerta, 3000);
+                                //	var	milliseconds=3000;
+                                //var start = new Date().getTime();
+                                //for (var i = 0; i < 1e7; i++) {
+                                //if ((new Date().getTime() - start) > milliseconds){
+                                //break;
+                                //}	
+                                //}
+                                //window.onloadend=window.alert("voce perdeu,clique para reiniciar")
+                                location.reload();
+                                //document.getElementById('dinossauro').setAttribute('position', {x: 5, y: 0, z: 0})
+                                //document.getElementById('camera').setAttribute('position', {x: 0, y: 2, z: 3})
+                                // document.getElementById('perdeu').setAttribute('position', {x: -5, y: 3.7, z: -3})
+                            })
+                        }
+            }
         </script>
-        
-        
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+
+
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -10" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -10" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -20" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -20" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -20" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -30" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -20" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -40" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -40" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -30" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -50" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -40" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -50" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -60" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -60" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -40" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -70" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -50" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -70" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -80" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
-        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -80" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -50" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -85" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -60" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -60" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -90" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -70" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -90" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -70" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
 
-        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -95" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -80" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -80" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -85" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="-1.2 0 -90" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -90" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
+        <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
+
+        <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -95" visible="" static-body physics-collider="ignoreSleep: true" material geometry velocity></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
     </a-scene>
 </body>
