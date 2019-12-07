@@ -23,59 +23,14 @@
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
 
         <script>
-            AFRAME.registerComponent('dinossauro', {
-
-                init: function() {
-                    this.dinossauro.addEventListener("collisions", (e) => {
-                        colisao = colisao + 1;
-                        console.log("colisao : " + colisao)
-                        alert("Voce perdeu@!")
-                        location.reload()
-                    })
-                }
-
-            });
-
+            //Elementos
+            
+            var dinossauro;
+            var score;
         </script>
 
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -10.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="2.00 2.00 -10.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 0.50 -15.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 0.50 -15.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -20.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 2.00 -20.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 2.00 -25.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -25.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 2.00 -30.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 0.50 -30.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -35.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 2.00 -35.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 0.50 -40.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 0.50 -40.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 2.00 -45.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 2.00 -45.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 0.50 -50.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -50.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 2.00 -55.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="2.00 2.00 -55.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 2.00 -60.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 0.50 -60.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 0.50 -65.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 2.00 -65.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -70.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="2.00 0.50 -70.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 0.50 -75.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="2.00 2.00 -75.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 0.50 -80.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 0.50 -80.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -85.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 0.50 -85.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 0.50 -90.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -90.00"></a-entity>
-        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 2.00 -95.00"></a-entity>
-        <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 0.50 -95.00"></a-entity>
+        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 0.00 -5.00"></a-entity>
+        
 
     </a-scene>
 </body>
