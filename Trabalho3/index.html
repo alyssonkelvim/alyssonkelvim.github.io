@@ -4,22 +4,52 @@
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-    
+
 
 </head>
 
 <body>
-        <a-scene>
-            
-            <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
+    <a-scene>
+
+        <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
             skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
-            <a-asset-item id="dinossauro" position="5 0 0" response-type="arraybuffer" src ="scene.glb"></a-asset-item>
-            <a-entity gltf-model="#dinossauro"scale="0.005 0.005 0.005" animation-mixer="clip:Armature|run_cycle" animation="property: position; to: 0 0 -97; dur: 40000; easing: linear"  animation-mixer="clip:Armature|run_cycle" wasd-controls="property: acceleration; acceleration: 4000; fly:true; wsAxis: y; wsInverted: true"></a-entity>
-            <a-entity camera look-controls position="0 2 3"  animation="property: position; to: 0 2 -94; dur: 40000; easing: linear"></a-entity>
-            
-            <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
-            <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
-            <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
+
+        <a-asset-item id="dinossauro" position="5 0 0" response-type="arraybuffer" src="scene.glb"></a-asset-item>
+        <a-entity gltf-model="#dinossauro" scale="0.005 0.005 0.005" animation-mixer="clip:Armature|run_cycle" animation="property: position; to: 0 0 -97; dur: 40000; easing: linear" animation-mixer="clip:Armature|run_cycle" wasd-controls="property: acceleration; acceleration: 4000; fly:true; wsAxis: y; wsInverted: true"></a-entity>
+        <a-entity camera look-controls position="0 2 3" animation="property: position; to: 0 2 -98; dur: 40000; easing: linear"></a-entity>
+
+        <script>
+            AFRAME.registerComponent('dinossauro', {
+                        tick: function() {
+                            const position = this.el.getAttribute('position');
+
+                            if (position.z <= -98) {
+                                position.x = 5;
+                                position.y = 0;
+                                position.z = 0;
+                                score = score + 1;
+                                document.getElementById('placar').setAttribute('value', 'Wins: ' + score);
+                                document.getElementById('camera').setAttribute('position', {
+                                    x: 0,
+                                    y: 1.6,
+                                    z: 0
+                                })
+                                document.getElementById('placar').setAttribute('position', {
+                                    x: position.x - 3,
+                                    y: position.y + 3.3,
+                                    z: position.z
+                                })
+                            }
+
+                        });
+
+        </script>
+
+        <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
+        <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
+
+
+        <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
         <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -5.00"></a-entity>
         <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="-2.00 0.50 -10.00"></a-entity>
         <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="2.00 2.00 -10.00"></a-entity>
@@ -57,7 +87,7 @@
         <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="0.00 2.00 -90.00"></a-entity>
         <a-entity geometry="primitive: box" static-body physics-collider="ignoreSleep: true" material="color: blue" scale="0.7 0.7 0.7" position="2.00 2.00 -95.00"></a-entity>
         <a-entity geometry="primitive: box" material="color: blue" static-body physics-collider="ignoreSleep: true" scale="0.7 0.7 0.7" position="-2.00 0.50 -95.00"></a-entity>
-            
+
     </a-scene>
 </body>
 
