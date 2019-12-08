@@ -20,6 +20,7 @@
         var score;
         var scorecamera;
         var dinossauro;
+        var arco;
 
     </script>
 
@@ -47,7 +48,7 @@
 
         </a-entity>
 
-        <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
+        <a-entity id="arco" gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
         <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
 
 
@@ -103,6 +104,7 @@
 
     <script>
         dinossauro = document.getElementById("dinossauro");
+        arco = document.getElementById("arco");
         score = document.getElementById("score");
         scoreCamera = document.getElementById("scoreCamera");
 
@@ -111,7 +113,9 @@
             pontuacao = 0;
             dinossauro = document.getElementById("dinossauro");
             posicaoJogador = dinossauro.getAttribute("position").z;
-            if (posicaoJogador < -94) {
+            posicaoArco = arco.getAttribute("position").z;
+
+            if (posicaoJogador == posicaoArco) {
                 pontuacao = 0 +1;
             }
             score.setAttribute("value", "Score: " + pontuacao);
