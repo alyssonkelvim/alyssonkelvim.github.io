@@ -19,7 +19,6 @@
         var pontuacao;
         var score;
         var scorecamera;
-        var valorpontos;
         var dinossauro;
 
     </script>
@@ -111,10 +110,6 @@
         function iniciar() {
             console.log("ScoreCamera:" + pontuacao);
 
-            valorPontos = 0;
-
-            score.setAttribute("value", "Score: " + pontuacao);
-            
             dinossauro = document.getElementById("dinossauro");
             posicaoJogador = dinossauro.getAttribute("position").z;
 
@@ -124,7 +119,6 @@
 
             scoreCamera.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("visible", "true");
-
         }
 
         iniciar();
