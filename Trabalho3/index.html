@@ -11,66 +11,15 @@
 </head>
 
 <body>
-
-    <script>
-        //variaveis de controle
-        var scoreVal;
-        var velocidade;
-        var valendo;
-        var telaGameOver;
-        var pontuou;
-        //elementos
-        var dinossauro;
-        var score;
-        var cacto;
-        AFRAME.registerComponent('dinossauro', {
-            init: function() {
-                dinossauro = this.el;
-                scoreVal = 0;
-                velocidade = 0;
-                valendo = false;
-                telaGameOver = true;
-                pontuou = false;
-                dinossauro.addEventListener("collisions", (e) => {
-                    if (valendo) {
-                        console.log("blA");
-                        valendo = false;
-                        telaGameOver = true;
-                        perdeu.setAttribute("visible", "true");
-                        //alert("Voce perdeu ! Clique na tela para começar novamente ;) ");
-                    }
-                });
-            },
-            tick: function() {
-                dinossauro.getAttribute("position").y += velocidade;
-                score.getAttribute("position").y += velocidade;
-                perdeu.getAttribute("position").y += velocidade;
-                if (valendo) {
-                    if (!pontuou) {
-                        pontuou = true;
-                        scoreVal++;
-                        score.setAttribute("value", "Score: " + scoreVal);
-                    }
-                }
-                if ((!valendo && telaGameOver) || valendo) {
-                    velocidade = 0;
-                    console.log("blA");
-                    valendo = false;
-                    telaGameOver = true;
-                    perdeu.setAttribute("visible", "true");
-
-                }
-            }
-        });
-
-    </script>
-
     <a-scene>
+        <script>
+            window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
+        </script>
 
-        <a-text value="Score: 0" width="20" id="score" rotation="0 -90 0" color="black" position="-9 8.5 -14.5" rotation="0 0 0"></a-text>
+        
+        <a-text value="Score: 0" width="20" id="score" rotation="0 -90 0" color="black" position="-9 8.5 -14.5" rotation="0 0 0" visible""></a-text>
         <a-text value="Voce Perdeu" width="1.3" id="perdeu" rotation="0 -90 0" color="black" position="-13.9 5 -6.17" rotation="0 0 0" visible="false"></a-text>
-
-
+        
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
 
@@ -80,7 +29,7 @@
         <a-entity camera look-controls position="0 2 3" animation="property: position; to: 0 2 -94; dur: 40000; easing: linear"></a-entity>
 
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
-        <a-entity gltf-model="arco" scale="0.15 0.15 0.15"></a-entity>
+        <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
 
 
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
@@ -132,49 +81,6 @@
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -95" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
     </a-scene>
-
-    <script>
-        score = document.getElementById("score");
-        perdeu = document.getElementById("perdeu");
-        camera = document.getElementById("camera");
-
-        function atualizaCena() {
-            if (valendo) {
-                definePosicao();
-            }
-            pontuou = false;
-        }
-
-        function iniciar() {
-            pontuou = false;
-            scoreVal = 0;
-            dinossauro.getAttribute("position").x = 5;
-            score.getAttribute("position").y = 8.5;
-            score.setAttribute("value", "Score: " + scoreVal);
-            perdeu.getAttribute("position").y = 5;
-            perdeu.setAttribute("visible", "false");
-            velocidade = 0;
-        }
-
-        function click() {
-            if (!valendo && telaGameOver) { //reniciar
-                definePosicao();
-                iniciar()
-            } else if (!valendo && !telaGameOver) {
-                valendo = true;
-                iniciar();
-                atualizaCena();
-            }
-        }
-        $(document).ready(function() {
-            window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
-        });
-        document.addEventListener('click', click);
-        //document.getElementById("chao").addEventListener('animationcomplete', atualizaCena);
-        definePosicao();
-
-    </script>
-
 </body>
 
 </html>
