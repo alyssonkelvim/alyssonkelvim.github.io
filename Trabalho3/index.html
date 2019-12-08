@@ -13,7 +13,7 @@
 <body>
 
     <script>
-        /*/variaveis de controle
+        //variaveis de controle
         var scoreVal;
         var velocidade;
         var valendo;
@@ -23,54 +23,42 @@
         var dinossauro;
         var score;
         var cacto;
-        AFRAME.registerComponent('bird', {
+        AFRAME.registerComponent('dinossauro', {
             init: function() {
-                bird = this.el;
+                dinossauro = this.el;
                 scoreVal = 0;
                 velocidade = 0;
                 valendo = false;
                 telaGameOver = true;
                 pontuou = false;
-                primeiraAnimacao = true;
-                bird.addEventListener("collisions", (e) => {
+                dinossauro.addEventListener("collisions", (e) => {
                     if (valendo) {
                         console.log("blA");
                         valendo = false;
                         telaGameOver = true;
-                        primeiraAnimacao = true;
-                        chao.setAttribute("animation", "property: position; enabled: false");
                         perdeu.setAttribute("visible", "true");
                         //alert("Voce perdeu ! Clique na tela para começar novamente ;) ");
                     }
                 });
             },
             tick: function() {
-                bird.getAttribute("position").y += velocidade;
+                dinossauro.getAttribute("position").y += velocidade;
                 score.getAttribute("position").y += velocidade;
                 perdeu.getAttribute("position").y += velocidade;
                 if (valendo) {
-                    if (chao.getAttribute("position").x < (bird.getAttribute("position").x + 0.1) && !pontuou) { //se passou do cano
+                    if (!pontuou) {
                         pontuou = true;
                         scoreVal++;
                         score.setAttribute("value", "Score: " + scoreVal);
                     }
-                    if (chao.getAttribute("position").x <= -13.99) { //se acabou animação					
-                        atualizaCena();
-                    }
                 }
                 if ((!valendo && telaGameOver) || valendo) {
-                    if (velocidade > -0.2) { //se velocidade de queda não está alta
-                        velocidade -= 0.01; //queda
-                    }
-                    if (bird.getAttribute("position").y <= -2.4) { //se não está no chão
-                        velocidade = 0;
-                        console.log("blA");
-                        valendo = false;
-                        telaGameOver = true;
-                        primeiraAnimacao = true;
-                        chao.setAttribute("animation", "property: position; enabled: false");
-                        perdeu.setAttribute("visible", "true");
-                    }
+                    velocidade = 0;
+                    console.log("blA");
+                    valendo = false;
+                    telaGameOver = true;
+                    perdeu.setAttribute("visible", "true");
+
                 }
             }
         });
@@ -78,10 +66,6 @@
     </script>
 
     <a-scene>
-        <script>
-            window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
-
-        </script>
 
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
@@ -144,6 +128,49 @@
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -95" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
     </a-scene>
+
+    <script>
+        score = document.getElementById("score");
+        perdeu = document.getElementById("perdeu");
+        camera = document.getElementById("camera");
+
+        function atualizaCena() {
+            if (valendo) {
+                definePosicao();
+            }
+            pontuou = false;
+        }
+
+        function iniciar() {
+            pontuou = false;
+            scoreVal = 0;
+            dinossauro.getAttribute("position").x = 5;
+            score.getAttribute("position").y = 8.5;
+            score.setAttribute("value", "Score: " + scoreVal);
+            perdeu.getAttribute("position").y = 5;
+            perdeu.setAttribute("visible", "false");
+            velocidade = 0;
+        }
+
+        function click() {
+            if (!valendo && telaGameOver) { //reniciar
+                definePosicao();
+                iniciar()
+            } else if (!valendo && !telaGameOver) {
+                valendo = true;
+                iniciar();
+                atualizaCena();
+            }
+        }
+        $(document).ready(function() {
+            window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
+        });
+        document.addEventListener('click', click);
+        //document.getElementById("chao").addEventListener('animationcomplete', atualizaCena);
+        definePosicao();
+
+    </script>
+
 </body>
 
 </html>
