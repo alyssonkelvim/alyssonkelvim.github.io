@@ -11,14 +11,42 @@
 </head>
 
 <body>
+    <script>
+        var pontuacao; /* Valor do score */
+        var score; /* Elemento Score */
+        var scoreCamera; /* Mostrador na câmera */
+        var posicaoJogador;
+        var derrota;
+        var dinossauro;
+
+        var perdeu;
+
+        var valorPontos;
+        var jogador;
+
+        var fim;
+
+        var XMorte;
+        var YMorte;
+        var ZMorte;
+        var tempoMorte = 0;
+
+    </script>
 
     <a-scene>
         <script>
             window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
 
         </script>
-        
-        
+
+        <a-text value="Score: 0" width="100" id="score" rotation="0 0 0" color="white" position="-5 40 0" visible="true" text="" scale=""></a-text>
+
+        <a-text value="VITORIA!" width="500" id="vitoria" rotation="0 0 0" color="blue" position="-15 25 0" visible="false" scale="" text=""></a-text>
+
+        <a-text id="scoreCamera" value="Score: 0" width="1" geometry="primitive:plane; height: 0.1; width:0.1" position="-0.7 0.35 -0.5" visible="false" rotation="" scale="" text=""></a-text>
+
+        <a-text value="Voce morreu!" width="4" geometry="primitive:plane; height: 0.2; width:0.2 " position="-0.5 0 -0.5" id="perdeu" rotation="0 0 0" color="red" visible="false" scale="" text=""></a-text>
+
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
 
@@ -80,6 +108,84 @@
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -95" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
     </a-scene>
+
+    <script>
+        dinossauro = document.getElementById("dinossauro");
+        score = document.getElementById("score");
+        scoreCamera = document.getElementById("scoreCamera");
+        perdeu = document.getElementById("perdeu");
+        vitoria = document.getElementById("vitoria");
+
+        function iniciar() {
+
+            derrota = false;
+
+            console.log("ScoreCamera:" + pontuacao);
+
+            valorPontos = 0;
+
+            score.setAttribute("value", "Score: " + pontuacao);
+
+        }
+
+
+        function verificaJogador() {
+
+            dinossauro = document.getElementById("dinossauro");
+            posicaoJogador = dinossauro.getAttribute("position");
+
+            /* console.log("Tecla Pressionada!"); */
+
+            alturaAgua = agua.getAttribute("position").y
+
+            if (derrota) {
+                /* Captura dados da morte */
+                xMorte = posicaoJogador.x;
+                console.log("Xmorte:" + xMorte);
+                zMorte = posicaoJogador.z;
+            }
+
+            position = "-0.5 0 -0.5"
+
+            /* Se jogador morreu: impede de andar*/
+            if (derrota) jogador.setAttribute("position", xMorte + " " + posicaoJogador.y + " " + zMorte);
+
+
+            if (fim == false) {
+
+                tempo = comparaTempo();
+                pontuacao = 0 - posicaoJogador.z;
+
+                /* Atualiza Score de cima do labirinto */
+                score.setAttribute("value", "Score: " + pontuacao);
+
+                scoreCamera.setAttribute("value", "Score: " + pontuacao);
+                scoreCamera.setAttribute("visible", "true");
+
+                if (posicaoJogador.z = -94 && derrota == false) {
+                    /* Se jogador */
+                    console.log("Você Venceu!"); /* Ganhou */
+
+                    vitoria.setAttribute("visible", "true");
+                    fim = true;
+                } else {
+                    console.log("Você Perdeu!"); /* Perdeu */
+                    fim = true;
+
+                }
+            }
+        }
+
+        iniciar();
+
+        if (fim == false) {
+            document.addEventListener('keydown', verificaJogador);
+        }
+
+    </script>
+
+
+
 </body>
 
 </html>
