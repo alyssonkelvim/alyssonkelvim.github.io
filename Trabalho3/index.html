@@ -113,7 +113,7 @@
             pontuacao = 0;
             dinossauro = document.getElementById("dinossauro");
             posicaoJogador = dinossauro.getAttribute("position").z
-
+            console.log("Distancia do Dino: "+posicaoJogador);
             pontuacao = 0 - posicaoJogador;
             score.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("value", "Score: " + pontuacao);
