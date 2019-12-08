@@ -1,22 +1,87 @@
 <html>
 
 <head>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
 </head>
 
 <body>
+
+    <script>
+        /*/variaveis de controle
+        var scoreVal;
+        var velocidade;
+        var valendo;
+        var telaGameOver;
+        var pontuou;
+        //elementos
+        var dinossauro;
+        var score;
+        var cacto;
+        AFRAME.registerComponent('bird', {
+            init: function() {
+                bird = this.el;
+                scoreVal = 0;
+                velocidade = 0;
+                valendo = false;
+                telaGameOver = true;
+                pontuou = false;
+                primeiraAnimacao = true;
+                bird.addEventListener("collisions", (e) => {
+                    if (valendo) {
+                        console.log("blA");
+                        valendo = false;
+                        telaGameOver = true;
+                        primeiraAnimacao = true;
+                        chao.setAttribute("animation", "property: position; enabled: false");
+                        perdeu.setAttribute("visible", "true");
+                        //alert("Voce perdeu ! Clique na tela para começar novamente ;) ");
+                    }
+                });
+            },
+            tick: function() {
+                bird.getAttribute("position").y += velocidade;
+                score.getAttribute("position").y += velocidade;
+                perdeu.getAttribute("position").y += velocidade;
+                if (valendo) {
+                    if (chao.getAttribute("position").x < (bird.getAttribute("position").x + 0.1) && !pontuou) { //se passou do cano
+                        pontuou = true;
+                        scoreVal++;
+                        score.setAttribute("value", "Score: " + scoreVal);
+                    }
+                    if (chao.getAttribute("position").x <= -13.99) { //se acabou animação					
+                        atualizaCena();
+                    }
+                }
+                if ((!valendo && telaGameOver) || valendo) {
+                    if (velocidade > -0.2) { //se velocidade de queda não está alta
+                        velocidade -= 0.01; //queda
+                    }
+                    if (bird.getAttribute("position").y <= -2.4) { //se não está no chão
+                        velocidade = 0;
+                        console.log("blA");
+                        valendo = false;
+                        telaGameOver = true;
+                        primeiraAnimacao = true;
+                        chao.setAttribute("animation", "property: position; enabled: false");
+                        perdeu.setAttribute("visible", "true");
+                    }
+                }
+            }
+        });
+
+    </script>
+
     <a-scene>
         <script>
             window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
 
         </script>
-        
-        <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
-        <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
 
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
@@ -27,9 +92,9 @@
         <a-entity camera look-controls position="0 2 3" animation="property: position; to: 0 2 -94; dur: 40000; easing: linear"></a-entity>
 
         <a-entity gltf-model="arco/scene.gltf" scale="0.1 0.1 0.1" position="0 0 -98" visible=""></a-entity>
-        <a-entity gltf-model="#arco" scale="0.15 0.15 0.15"></a-entity>
-        
-        
+        <a-entity gltf-model="arco" scale="0.15 0.15 0.15"></a-entity>
+
+
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="0 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
         <a-entity gltf-model="#cacto" scale="0.15 0.15 0.15"></a-entity>
         <a-entity gltf-model="cacto/scene.glb" scale="0.1 0.1 0.1" position="1.2 0 -10" visible="" static-body physics-collider="ignoreSleep: true"></a-entity>
