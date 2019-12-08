@@ -112,12 +112,9 @@
             console.log("ScoreCamera:" + pontuacao);
             pontuacao = 0;
             dinossauro = document.getElementById("dinossauro");
-            posicaoJogador = dinossauro.getAttribute("position").z;
-            posicaoArco = arco.getAttribute("position").z;
+            posicaoJogador = dinossauro.getAttribute("position").z
 
-            if (posicaoJogador == (0,0,-97)) {
-                pontuacao = 0 +1;
-            }
+            pontuacao = 0 - posicaoJogador;
             score.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("visible", "true");
