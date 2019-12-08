@@ -110,7 +110,8 @@
             console.log("ScoreCamera:" + pontuacao);
 
             dinossauro = document.getElementById("dinossauro");
-            pontuacao = 0 - dinossauro.getAttribute("position").z.stringify;
+            posicaoJogador = dinossauro.getAttribute("position").z;
+            pontuacao = 0 - posicaoJogador;
             score.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("visible", "true");
