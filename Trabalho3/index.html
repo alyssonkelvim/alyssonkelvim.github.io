@@ -7,13 +7,19 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
-
+    <title>Dino Game</title>
 </head>
 
 
 
 
 <body>
+    
+    <div class="screen title-screen">
+      <div class="title">Dino Game</div>
+      <div class="start blink">Clique para começar</div>
+      <div class="instructions">Desvie dos cactos e chegue até o arco vivo!</div>
+    </div>
 
     <script>
         var pontuacao;
@@ -27,12 +33,6 @@
 
         <a-text value="Score: 0" width="100" id="score" rotation="0 0 0" color="white" position="-5 40 0" visible="true" text="" scale=""></a-text>
         <a-text value="VITORIA!" width="500" id="vitoria" rotation="0 0 0" color="blue" position="-15 25 0" visible="false" scale="" text=""></a-text>
-
-
-        <script>
-            window.onloadend = window.alert("Clique em 'Ok' para começar o jogo !");
-
-        </script>
 
         <a-entity environment="preset: yavapai; groundColor: #4b803e ; groundColor2: #2a4a17;
         skyColor: #e0ba31; ground: flat; horizonColor: #fab587"></a-entity>
@@ -106,17 +106,13 @@
         score = document.getElementById("score");
         scoreCamera = document.getElementById("scoreCamera");
 
-
         function iniciar() {
             console.log("ScoreCamera:" + pontuacao);
 
             dinossauro = document.getElementById("dinossauro");
             posicaoJogador = dinossauro.getAttribute("position").z;
-
             pontuacao = 0 - posicaoJogador;
-
             score.setAttribute("value", "Score: " + pontuacao);
-
             scoreCamera.setAttribute("value", "Score: " + pontuacao);
             scoreCamera.setAttribute("visible", "true");
         }
