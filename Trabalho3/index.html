@@ -111,7 +111,7 @@
             pontuacao = 0;
             dinossauro = document.getElementById("dinossauro");
             posicaoJogador = dinossauro.getAttribute("position").z;
-            if (posicaoJogador == -94) {
+            if (posicaoJogador < -94) {
                 pontuacao = 0 +1;
             }
             score.setAttribute("value", "Score: " + pontuacao);
