@@ -116,9 +116,9 @@
             score.setAttribute("value", "Score: " + pontuacao);
             
             dinossauro = document.getElementById("dinossauro");
-            posicaoJogador = dinossauro.getAttribute("position");
+            posicaoJogador = dinossauro.getAttribute("position").z;
 
-            pontuacao = 0 - posicaoJogador;
+            pontuacao = 0 - posicaoJogador.;
 
             score.setAttribute("value", "Score: " + pontuacao);
 
